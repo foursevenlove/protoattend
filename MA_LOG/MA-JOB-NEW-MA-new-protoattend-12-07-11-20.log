@@ -1,0 +1,236 @@
+[ModelArts Service Log][init] toolkit_obs_upload_job_pid = 56
+[ModelArts Service Log][init] toolkit_obs_upload_pid = 57
+[ModelArts Service Log][init] running at 2021-12-07-11:20:22
+[ModelArts Service Log][init] ip of the pod: 172.16.0.76
+[ModelArts Service Log][init] autosearch_path is empty, skip the autosearch download
+[ModelArts Service Log][init] download code_url: s3://npupro/output/MA-new-protoattend-12-07-11-20/code/
+[ModelArts Service Log][init] modelarts_downloader_job_pid = 126
+[ModelArts Service Log]2021-12-07 11:20:23,178 - modelarts-downloader.py[line:264] - INFO: Main: modelarts-downloader starting with Namespace(dst='./', recursive=True, skip_creating_dir=False, src='s3://npupro/output/MA-new-protoattend-12-07-11-20/code/', trace=False, type='common', verbose=False)
+[ModelArts Service Log][init] code is now in /home/ma-user/modelarts/user-job-dir
+[ModelArts Service Log][init]engine type is: ascend-powered-engine
+[ModelArts Service Log][init]python version: 2
+[ModelArts Service Log][init] inputs_handler_job_pid = 223
+[ModelArts Service Log][INFO][2021/12/07 11:20:25]: caching the content of [data_url] inputs
+[ModelArts Service Log]2021-12-07 11:20:26,101 - modelarts-downloader.py[line:264] - INFO: Main: modelarts-downloader starting with Namespace(dst='./', recursive=True, skip_creating_dir=True, src='s3://npupro/dataset/', trace=False, type='common', verbose=False)
+[ModelArts Service Log][INFO][2021/12/07 11:20:28]: cache the content of [data_url] inputs successfully
+[ModelArts Service Log][INFO][2021/12/07 11:20:28]: it can be accessed at local dir [/home/ma-user/modelarts/inputs/data_url_0]
+[ModelArts Service Log][INFO][2021/12/07 11:20:28,772]: mkdir for local output dir
+[ModelArts Service Log][INFO][2021/12/07 11:20:28,772]: output-handler finalized
+[ModelArts Service Log][init] exiting at 2021-12-07-11:20:28
+[ModelArts Service Log][init] upload_metrics_pid = 438
+[ModelArts Service Log][init] stop toolkit_obs_upload_pid = 57 by signal SIGTERM
+[ModelArts Service Log][sidecar] toolkit_obs_upload 57 ret_code is 0
+[ModelArts Service Log][init] exit with 0
+[ModelArts Service Log]user: uid=1102(ma-user) gid=1102(ma-group) groups=1102(ma-group),1000(HwHiAiUser)
+[ModelArts Service Log]pwd: /home/ma-user/infer
+[ModelArts Service Log]boot_file: /home/ma-user/modelarts/user-job-dir/code/boot_modelarts.py
+[ModelArts Service Log]command: /home/ma-user/modelarts/user-job-dir/code/boot_modelarts.py --data_url=/home/ma-user/modelarts/inputs/data_url_0/ --train_url=/home/ma-user/modelarts/outputs/train_url_0/
+[ModelArts Service Log]local_code_dir: /home/ma-user/modelarts/user-job-dir/code
+[ModelArts Service Log]training start at 2021-12-07-11:20:31
+[ModelArts Service Log][sidecar] toolkit_obs_upload_job_pid = 32
+[ModelArts Service Log][sidecar] toolkit_obs_upload_pid = 33
+[ModelArts Service Log][sidecar] running at 2021-12-07-11:20:32
+[ModelArts Service Log][sidecar] outputs_handler_job_pid = 60
+[ModelArts Service Log][sidecar] outputs_handler_pid = 61
+[ModelArts Service Log][sidecar] toolkit_obs_sync_by_channels_job_pid = 75
+[ModelArts Service Log][sidecar] toolkit_obs_sync_by_channels_pid = 76
+[ModelArts Service Log][sidecar] waiting for training complete
+time="2021-12-07T11:20:32+08:00" level=info msg="local dir = /home/ma-user/modelarts/log/" file="upload.go:39" Command=obs/upload Component=ma-training-toolkit Platform=ModelArts-Service
+time="2021-12-07T11:20:32+08:00" level=info msg="obs dir = s3://modelarts-training-log-cn-north-4/1b10612b-f3ef-4d28-a7fd-bc3c93b07149/worker-0" file="upload.go:42" Command=obs/upload Component=ma-training-toolkit Platform=ModelArts-Service
+time="2021-12-07T11:20:32+08:00" level=info msg="start the periodic upload task, upload period = 5 seconds " file="upload.go:52" Command=obs/upload Component=ma-training-toolkit Platform=ModelArts-Service
+time="2021-12-07T11:20:32+08:00" level=info msg="local dir = /home/ma-user/modelarts/outputs/train_url_0/" file="upload.go:39" Command=obs/sync_by_channels Component=ma-training-toolkit Ctx=train_url Platform=ModelArts-Service
+time="2021-12-07T11:20:32+08:00" level=info msg="obs dir = s3://npupro/output/MA-new-protoattend-12-07-11-20/output/" file="upload.go:42" Command=obs/sync_by_channels Component=ma-training-toolkit Ctx=train_url Platform=ModelArts-Service
+time="2021-12-07T11:20:32+08:00" level=info msg="start the periodic upload task, upload period = 30 seconds " file="upload.go:52" Command=obs/sync_by_channels Component=ma-training-toolkit Ctx=train_url Platform=ModelArts-Service
+time="2021-12-07T11:20:32+08:00" level=info msg="local dir = /home/ma-user/modelarts/log/" file="upload.go:39" Command=obs/sync_by_channels Component=ma-training-toolkit Ctx=log_url Platform=ModelArts-Service
+time="2021-12-07T11:20:32+08:00" level=info msg="obs dir = s3://npupro/output/MA-new-protoattend-12-07-11-20/log/" file="upload.go:42" Command=obs/sync_by_channels Component=ma-training-toolkit Ctx=log_url Platform=ModelArts-Service
+time="2021-12-07T11:20:32+08:00" level=info msg="start the periodic upload task, upload period = 30 seconds " file="upload.go:52" Command=obs/sync_by_channels Component=ma-training-toolkit Ctx=log_url Platform=ModelArts-Service
+[ModelArts Service Log][INFO][2021/12/07 11:20:32,938]: registered signal handler
+/home/ma-user/modelarts/user-job-dir
+INFO:root:Using MoXing-v2.0.0.rc2.4b57a67b-4b57a67b
+INFO:root:Using OBS-Python-SDK-3.20.9.1
+[ModelArts Service Log]2021-12-07 11:20:36,019 - INFO - Ascend Driver: Version=21.0.2
+[ModelArts Service Log]2021-12-07 11:20:36,019 - INFO - you are advised to use ASCEND_DEVICE_ID env instead of DEVICE_ID, as the DEVICE_ID env will be discarded in later versions
+[ModelArts Service Log]2021-12-07 11:20:36,020 - INFO - particularly, ${ASCEND_DEVICE_ID} == ${DEVICE_ID}, it's the logical device id
+[ModelArts Service Log]2021-12-07 11:20:36,020 - INFO - Davinci training command
+[ModelArts Service Log]2021-12-07 11:20:36,020 - INFO - ['/home/ma-user/anaconda/bin/python', '/home/ma-user/modelarts/user-job-dir/code/boot_modelarts.py', '--data_url=/home/ma-user/modelarts/inputs/data_url_0/', '--train_url=/home/ma-user/modelarts/outputs/train_url_0/']
+[ModelArts Service Log]2021-12-07 11:20:36,020 - INFO - Wait for Rank table file ready
+[ModelArts Service Log]2021-12-07 11:20:36,020 - INFO - Rank table file (K8S generated) is ready for read
+[ModelArts Service Log]2021-12-07 11:20:36,020 - INFO - 
+{
+    "status": "completed",
+    "group_count": "1",
+    "group_list": [
+        {
+            "group_name": "worker",
+            "device_count": "1",
+            "instance_count": "1",
+            "instance_list": [
+                {
+                    "pod_name": "ma-job-1b10612b-f3ef-4d28-a7fd-bc3c93b07149-worker-0",
+                    "server_id": "192.168.0.88",
+                    "devices": [
+                        {
+                            "device_id": "5",
+                            "device_ip": "192.2.147.249"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
+[ModelArts Service Log]2021-12-07 11:20:36,021 - INFO - Rank table file (V1)
+[ModelArts Service Log]2021-12-07 11:20:36,021 - INFO - 
+{
+    "status": "completed",
+    "version": "1.0",
+    "server_count": "1",
+    "server_list": [
+        {
+            "server_id": "192.168.0.88",
+            "device": [
+                {
+                    "device_id": "5",
+                    "device_ip": "192.2.147.249",
+                    "rank_id": "0"
+                }
+            ]
+        }
+    ]
+}
+[ModelArts Service Log]2021-12-07 11:20:36,021 - INFO - Rank table file (V1) is generated
+[ModelArts Service Log]2021-12-07 11:20:36,021 - INFO - Current server
+[ModelArts Service Log]2021-12-07 11:20:36,021 - INFO - 
+{
+    "server_id": "192.168.0.88",
+    "device": [
+        {
+            "device_id": "5",
+            "device_ip": "192.2.147.249",
+            "rank_id": "0"
+        }
+    ]
+}
+[ModelArts Service Log]2021-12-07 11:20:36,022 - ERROR - Route plan so files not found. Please check files in /usr/local/route
+[ModelArts Service Log]2021-12-07 11:20:36,023 - INFO - bootstrap proc-rank-0-device-0
+[ModelArts Service Log]2021-12-07 11:20:36,032 - INFO - proc-rank-0-device-0 (pid: 98)
+PYTHONUNBUFFERED=1
+LD_LIBRARY_PATH=/usr/local/seccomponent/lib:/home/ma-user/anaconda/lib:/usr/local/nvidia/lib:/usr/local/nvidia/lib64:/usr/local/cuda/extras/CUPTI/lib64:/usr/local/lib:/usr/local/openmpi/lib:/usr/lib/aarch64-linux-gnu/hdf5/serial:/usr/local/Ascend/nnae/latest/fwkacllib/lib64:/usr/local/Ascend/driver/lib64/common:/usr/local/Ascend/driver/lib64/driver::/usr/local/seccomponent/lib/:/usr/local/seccomponent/lib/openssl/
+TOOLCHAIN_HOME=HOST_ASCEND_BASE/toolkit
+MA_ENGINE_VERSION=tensorflow_1.15-cann_5.0.2-py_3.7-euler_2.8.3-aarch64
+MA_NUM_HOSTS=1
+VC_WORKER_HOSTS=ma-job-1b10612b-f3ef-4d28-a7fd-bc3c93b07149-worker-0.ma-job-1b10612b-f3ef-4d28-a7fd-bc3c93b07149
+VK_TASK_INDEX=0
+MA_AUTOSEARCH_ENABLE=false
+TF_PLUGIN_PKG=/usr/local/Ascend/tfplugin/latest/tfplugin/python/site-packages
+_=/usr/bin/env
+MA_SCRIPT_INTERPRETER=
+HOSTNAME=ma-job-1b10612b-f3ef-4d28-a7fd-bc3c93b07149-worker-0
+OLDPWD=/home/ma-user/infer
+PIP_OPTS=--trusted-host szg1.artifactory.inhuawei.com -i http://szg1.artifactory.inhuawei.com/artifactory/api/pypi/cbu-pypi-public/simple/ --user
+NPU-VISIBLE-DEVICES=5
+ENV_NAME=TensorFlow-1.15-arm
+JAVA_HOME=/home/ma-user/jdk1.8.0_212
+MA_CURRENT_IP=172.16.0.76
+MA_MOUNT_PATH=/home/ma-user/modelarts
+CLASS_PATH=.:/home/ma-user/jdk1.8.0_212/lib/dt.jar:/home/ma-user/jdk1.8.0_212/lib/tools.jar:/home/ma-user/jdk1.8.0_212/jre/lib
+ASCEND_AICPU_PATH=/usr/local/Ascend/nnae/latest
+MA_ENGINE_TYPE=ascend-powered-engine
+MA_HOME=/home/ma-user
+KUBERNETES_PORT_443_TCP_PROTO=tcp
+KUBERNETES_PORT_443_TCP_ADDR=10.247.0.1
+MA_VJ_NAME=ma-job-1b10612b-f3ef-4d28-a7fd-bc3c93b07149
+TBE_IMPL_PATH=/usr/local/Ascend/nnae/latest/opp/op_impl/built-in/ai_core/tbe
+FE_FLAG=1
+MOX_VERSION_LOGGED=1
+MA_PIP_URL=http://repo.myhuaweicloud.com/repository/pypi/simple/
+FWK_PYTHON_PATH=/usr/local/Ascend/nnae/latest/fwkacllib/python/site-packages
+KUBERNETES_PORT=tcp://10.247.0.1:443
+PWD=/home/ma-user/modelarts/workspace/device0
+ASCEND_DEVICE_ID=0
+RANK_ID=0
+HOME=/home/ma-user
+LC_CTYPE=C.UTF-8
+_STDBUF_E=L
+DEVICE_ID=0
+_STDBUF_O=L
+S3_USE_HTTPS=1
+MA_LOG_DIR=/home/ma-user/modelarts/log
+RANK_SIZE=1
+KUBERNETES_SERVICE_PORT_HTTPS=443
+SITE_PACKAGES_PATH=/home/ma-user/miniconda3/envs/TensorFlow-1.15-arm/lib/python3.7/site-packages
+KUBERNETES_PORT_443_TCP_PORT=443
+IS_NEW_IMAGE_FRAMEWORK=true
+RANK_TABLE_FILE=/home/ma-user/rank_table/jobstart_hccl.json
+MA_NUM_GPUS=1
+S3_ENDPOINT=obs.cn-north-4.myhuaweicloud.com
+SCC_CONFIG_PATH=/home/ma-user/modelarts/scc/conf/scc.conf
+GLOG_v=2
+MA_CURRENT_INSTANCE_ID=8cd7f2a7-acc8-46e6-a8bd-ce1705a4c232
+FMK_WORKSPACE=/home/ma-user/modelarts/user-job-dir/workspace
+MA_SCC_PYTHON_ADAPTER=/home/ma-user/modelarts/scc
+MA_PIP_HOST=repo.myhuaweicloud.com
+MODELARTS_MODEL_PATH=/home/ma-user/infer/model/1
+S3_VERIFY_SSL=0
+PAAS_POD_ID=8cd7f2a7-acc8-46e6-a8bd-ce1705a4c232
+KUBERNETES_PORT_443_TCP=tcp://10.247.0.1:443
+OPTION_EXEC_EXTERN_PLUGIN_PATH=/usr/local/Ascend/fwkacllib/lib64/plugin/opskernel/libfe.so:/usr/local/Ascend/fwkacllib/lib64/plugin/opskernel/libaicpu_plugin.so:/usr/local/Ascend/fwkacllib/lib64/plugin/opskernel/librts_engine.so:/usr/local/Ascend/fwkacllib/lib64/plugin/opskernel/libge_local_engine.so
+ASCEND_PROCESS_LOG_PATH=/home/ma-user/modelarts/log/modelarts-job-1b10612b-f3ef-4d28-a7fd-bc3c93b07149/ascend/process_log/rank_0
+MA_INPUTS={"inputs": [{"parameter": {"label": "data_url", "value": "/home/ma-user/modelarts/inputs/data_url_0"}, "data_source": {"obs": {"obs_url": "/npupro/dataset/"}}}]}
+VC_TASK_INDEX=0
+PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python
+MODELARTS_BATCH_PREDICT_URL=http://127.0.0.1:8080
+ASCEND_OPP_PATH=/usr/local/Ascend/nnae/latest/opp
+HCCL_CONNECT_TIMEOUT=1800
+VC_WORKER_NUM=1
+JOB_ID=modelarts-job-1b10612b-f3ef-4d28-a7fd-bc3c93b07149
+MA_PYTHON_VERSION=2
+DEPLOY_MODE=1
+SHLVL=4
+ANACONDA_DIR=/home/ma-user/miniconda3
+PYTHONPATH=/home/ma-user/modelarts/user-job-dir:/usr/local/Ascend/nnae/latest/pyACL/python/site-packages/acl:/usr/local/Ascend/nnae/latest/fwkacllib/python/site-packages:/usr/local/Ascend/nnae/latest/fwkacllib/python/site-packages/auto_tune.egg:/usr/local/Ascend/nnae/latest/fwkacllib/python/site-packages/schedule_search.egg:/usr/local/Ascend/tfplugin/latest/tfplugin/python/site-packages:/usr/local/Ascend/nnae/latest/opp/op_impl/built-in/ai_core/tbe:/usr/local/seccomponent/lib:/home/ma-user/infer/model/1
+MA_OUTPUTS={"outputs": [{"parameter": {"label": "train_url", "value": "/home/ma-user/modelarts/outputs/train_url_0"}, "data_source": {"obs": {"obs_url": "/npupro/output/MA-new-protoattend-12-07-11-20/output/"}}}]}
+MA_DETECT_ITEM={}
+MA_CURRENT_INSTANCE_NAME=ma-job-1b10612b-f3ef-4d28-a7fd-bc3c93b07149-worker-0
+KUBERNETES_SERVICE_PORT=443
+ME_TBE_PLUGIN_PATH=/usr/local/Ascend/opp/framework/built-in/tensorflow/
+CREDENTIAL_PROFILES_FILE=/run/secrets/modelarts/user/config
+MA_JOB_DIR=/home/ma-user/modelarts/user-job-dir
+JRE_HOME=/home/ma-user/jdk1.8.0_212/jre
+PATH=/home/ma-user/anaconda/bin:/home/ma-user/jdk1.8.0_212/bin:/home/ma-user/jdk1.8.0_212/jre/bin:/home/ma-user/ddk/bin/x86_64-linux-gcc5.4:/usr/local/openmpi/bin:/home/ma-user/miniconda3/envs/TensorFlow-1.15-arm/bin:/usr/local/ma/python3.7/bin/:/usr/local/Ascend/nnae/latest/fwkacllib/ccec_compiler/bin:/usr/local/Ascend/nnae/latest/fwkacllib/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/ma-user/.local/bin
+MA_TERMINATION_MESSAGE_PATH=/home/ma-user/modelarts/log/termination-log
+MA_TASK_NAME=worker
+MA_NAMESPACE=default
+LD_PRELOAD=/usr/libexec/coreutils/libstdbuf.so
+DLS_LOCAL_CACHE_PATH=/cache
+KUBERNETES_SERVICE_HOST=10.247.0.1
+AICPU_FLAG=1
+0
+===>>>code_dir:/home/ma-user/modelarts/user-job-dir/code, work_dir:/home/ma-user/modelarts/workspace/device0
+--------config----------
+key:train_url: value:/home/ma-user/modelarts/outputs/train_url_0/
+key:data_url: value:/home/ma-user/modelarts/inputs/data_url_0/
+key:modelarts_data_dir: value:/cache/protoattend-dataset
+key:modelarts_result_dir: value:/cache/result
+--------config----------
+===>>>Copy files from obs:/home/ma-user/modelarts/inputs/data_url_0/ to modelarts dir:/cache/protoattend-dataset
+===>>>Copy from obs to modelarts, time use:0(s)
+===>>>Files: ['t10k-labels-idx1-ubyte.gz', 'train-images-idx3-ubyte.gz', 't10k-images-idx3-ubyte.gz', 'train-labels-idx1-ubyte.gz']
+Traceback (most recent call last):
+  File "/home/ma-user/modelarts/user-job-dir/code/boot_modelarts.py", line 51, in <module>
+    arg_url = '%s %s %s %s' % (code_dir, config.data_dir, config.modelarts_result_dir, config.train_url)
+AttributeError: 'Namespace' object has no attribute 'data_dir'
+[ModelArts Service Log]2021-12-07 11:20:37,040 - ERROR - proc-rank-0-device-0 (pid: 98) has exited with non-zero code: 1
+[ModelArts Service Log]2021-12-07 11:20:37,040 - INFO - Begin destroy training processes
+[ModelArts Service Log]2021-12-07 11:20:37,040 - INFO - proc-rank-0-device-0 (pid: 98) has exited
+[ModelArts Service Log]2021-12-07 11:20:37,040 - INFO - End destroy training processes
+[ModelArts Service Log]exiting...
+[ModelArts Service Log]exit with 1
+[ModelArts Service Log][sidecar] training is completed
+time="2021-12-07T11:20:38+08:00" level=warning msg="the \"log-preview-size\" parameter exceeds the limit and will be set to the default value 5242880" file="cli.go:190" Command=analyze Component=ma-training-toolkit Platform=ModelArts-Service
+[ModelArts Service Log][sidecar] stop outputs_handler_pid = 61 by signal SIGTERM
+[ModelArts Service Log][INFO][2021/12/07 11:20:38,944]: output-handler finalizing due to: [training finished]
+[ModelArts Service Log][INFO][2021/12/07 11:20:38,944]: output-handler finalized
+[ModelArts Service Log][sidecar] stop toolkit_obs_sync_by_channels_pid = 76 by signal SIGTERM
+time="2021-12-07T11:20:39+08:00" level=info msg="the periodic upload task exiting..." file="upload.go:59" Command=obs/sync_by_channels Component=ma-training-toolkit Ctx=train_url Platform=ModelArts-Service
+time="2021-12-07T11:20:39+08:00" level=info msg="the periodic upload task exiting..." file="upload.go:59" Command=obs/sync_by_channels Component=ma-training-toolkit Ctx=log_url Platform=ModelArts-Service
