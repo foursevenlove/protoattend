@@ -17,6 +17,8 @@
 
 from options import FLAGS
 import tensorflow.compat.v1 as tf
+# 导入NPU配置相关包
+from npu_bridge.npu_init import *
 
 IMG_SIZE = FLAGS.img_size
 NUM_CHANNELS = 1

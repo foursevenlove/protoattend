@@ -16,6 +16,8 @@
 """Input flags."""
 
 import tensorflow.compat.v1 as tf
+# 导入NPU配置相关包
+from npu_bridge.npu_init import *
 
 flags = tf.app.flags
 FLAGS = flags.FLAGS
@@ -36,10 +38,10 @@ flags.DEFINE_float("alpha_intermediate", 0.5,
 
 # Training parameters
 flags.DEFINE_integer("random_seed", 1, "Random seed.")
-flags.DEFINE_integer("num_steps", 400000, "Number of training steps.")
-flags.DEFINE_integer("display_step", 1000, "Display step.")
-flags.DEFINE_integer("val_step", 4000, "Validation step.")
-flags.DEFINE_integer("save_step", 15000, "Save step.")
+flags.DEFINE_integer("num_steps", 1000, "Number of training steps.")
+flags.DEFINE_integer("display_step", 50, "Display step.")
+flags.DEFINE_integer("val_step", 50, "Validation step.")
+flags.DEFINE_integer("save_step", 100, "Save step.")
 flags.DEFINE_float("init_learning_rate", 0.001, "Initial learning rate.")
 flags.DEFINE_integer("decay_every", 8000, "Decay interval.")
 flags.DEFINE_float("decay_rate", 0.9, "Decay rate.")
@@ -49,3 +51,12 @@ flags.DEFINE_integer("example_cand_size", 1024,
                      "Training candidate database size.")
 flags.DEFINE_integer("eval_cand_size", 32768,
                      "Validation candidate database size.")
+
+## Required parameters
+flags.DEFINE_string( "train_url", "../output","The output directory where the model checkpoints will be written.")
+flags.DEFINE_string("data_url", "../dataset",  "dataset path")
+flags.DEFINE_string("obs_dir", "obs://npuprotoattend/log", "obs result path, not need on gpu and apulis platform")
+flags.DEFINE_string("chip", "npu", "Run on which chip, (npu or gpu or cpu)")
+flags.DEFINE_string("platform", "modelarts", "Run on linux/apulis/modelarts platform. Modelarts Platform has some extra data copy operations")
+flags.DEFINE_string("result", "result", "The result directory where the model checkpoints will be written.")
+flags.DEFINE_boolean("profiling", False, "profiling for performance or not")

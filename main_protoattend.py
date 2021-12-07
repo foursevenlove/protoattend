@@ -29,16 +29,16 @@ import numpy as np
 from options import FLAGS
 import tensorflow.compat.v1 as tf
 import utils
-
-# GPU options
-
-os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
-os.environ["CUDA_VISIBLE_DEVICES"] = "0"
+from load_data import load_data_my
+# 导入NPU配置相关包
+from npu_bridge.npu_init import *
+from tensorflow.core.protobuf.rewriter_config_pb2 import RewriterConfig
 
 # File names
 
 model_name = os.path.basename(__file__).split(".")[0]
-checkpoint_name = "./checkpoints/" + model_name + ".ckpt"
+# 修改检查点保存路径
+checkpoint_name = os.path.join(FLAGS.train_url, "model") + '/' + model_name + ".ckpt"
 export_name = os.path.join("exports", time.strftime("%Y%m%d-%H%M%S"))
 
 # Set random seed
@@ -73,8 +73,8 @@ def main(unused_argv):
 
   # Load training and eval data - this portion can be modified if the data is
   # imported from other sources.
-  (m_train_data, m_train_labels), (m_eval_data, m_eval_labels) = \
-    tf.keras.datasets.fashion_mnist.load_data()
+  print(FLAGS.data_url)
+  (m_train_data, m_train_labels), (m_eval_data, m_eval_labels) = load_data_my(FLAGS.data_url)
   train_dataset = tf.data.Dataset.from_tensor_slices(
       (m_train_data, m_train_labels))
   eval_dataset = tf.data.Dataset.from_tensor_slices(
@@ -85,10 +85,12 @@ def main(unused_argv):
   eval_batch_size = int(
       math.floor(len(m_eval_data) / FLAGS.batch_size) * FLAGS.batch_size)
 
-  train_batch = train_dataset.repeat().batch(FLAGS.batch_size)
-  train_cand = train_dataset.repeat().batch(FLAGS.example_cand_size)
-  eval_cand = train_dataset.repeat().batch(FLAGS.eval_cand_size)
-  eval_batch = eval_dataset.repeat().batch(eval_batch_size)
+  # 设置drop_remainder=True
+  train_batch = train_dataset.repeat().batch(FLAGS.batch_size,drop_remainder=True)
+  train_cand = train_dataset.repeat().batch(FLAGS.example_cand_size,drop_remainder=True)
+  # 修改混淆训练集和验证集
+  eval_cand = eval_dataset.repeat().batch(FLAGS.eval_cand_size,drop_remainder=True)
+  eval_batch = eval_dataset.repeat().batch(eval_batch_size,drop_remainder=True)
 
   iter_train = train_batch.make_initializable_iterator()
   iter_train_cand = train_cand.make_initializable_iterator()
@@ -313,32 +315,49 @@ def main(unused_argv):
   saver_all = tf.train.Saver()
   summaries = tf.summary.merge_all()
 
+  # NPU相关配置
+  config = tf.ConfigProto()
+  custom_op = config.graph_options.rewrite_options.custom_optimizers.add()
+  custom_op.name = "NpuOptimizer"
+  custom_op.parameter_map["graph_memory_max_size"].s = b'21474836480'
+  custom_op.parameter_map["variable_memory_max_size"].s = b'11811160064'
+  custom_op.parameter_map["use_off_line"].b = True  # 在昇腾AI处理器执行训练
+  config.graph_options.rewrite_options.remapping = RewriterConfig.OFF  # 必须显式关闭
+  config.graph_options.rewrite_options.memory_optimization = RewriterConfig.OFF  # 必须显式关闭
+  custom_op.parameter_map["dynamic_input"].b = True
+  custom_op.parameter_map["dynamic_graph_execute_mode"].s = tf.compat.as_bytes("lazy_recompile")
+
+  # 使用NPU配置开启sess
   with tf.Session() as sess:
+      # 修改summary保存路径
+      summary_writer = tf.summary.FileWriter(os.path.join(FLAGS.train_url, "train") + '/' + model_name, sess.graph)
 
-    summary_writer = tf.summary.FileWriter("./tflog/" + model_name, sess.graph)
+      sess.run(init)
+      sess.run(iter_train.initializer)
+      sess.run(iter_train_cand.initializer)
+      sess.run(iter_eval_cand.initializer)
+      sess.run(iter_eval.initializer)
 
-    sess.run(init)
-    sess.run(iter_train.initializer)
-    sess.run(iter_train_cand.initializer)
-    sess.run(iter_eval_cand.initializer)
-    sess.run(iter_eval.initializer)
+      print('Training Start')
+      for step in range(1, FLAGS.num_steps):
+          print("Step " + str(step))
+          if step % FLAGS.display_step == 0:
+              _, train_loss = sess.run([train_op, train_loss_op])
+              print("Step " + str(step) + " , Training loss = " +
+                    "{:.4f}".format(train_loss))
+          else:
+              sess.run(train_op)
 
-    for step in range(1, FLAGS.num_steps):
-      if step % FLAGS.display_step == 0:
-        _, train_loss = sess.run([train_op, train_loss_op])
-        print("Step " + str(step) + " , Training loss = " +
-              "{:.4f}".format(train_loss))
-      else:
-        sess.run(train_op)
+          if step % FLAGS.val_step == 0:
+              print('val_step')
+              val_acc, merged_summary = sess.run([val_weighted_acc_op, summaries])
+              print("Step " + str(step) + " , Val Accuracy = " +
+                    "{:.4f}".format(val_acc))
+              summary_writer.add_summary(merged_summary, step)
 
-      if step % FLAGS.val_step == 0:
-        val_acc, merged_summary = sess.run([val_weighted_acc_op, summaries])
-        print("Step " + str(step) + " , Val Accuracy = " +
-              "{:.4f}".format(val_acc))
-        summary_writer.add_summary(merged_summary, step)
-
-      if step % FLAGS.save_step == 0:
-        saver_all.save(sess, checkpoint_name)
+          if step % FLAGS.save_step == 0:
+              saver_all.save(sess, checkpoint_name)
+      print('Training Start')
 
 if __name__ == "__main__":
   tf.app.run()

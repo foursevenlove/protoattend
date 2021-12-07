@@ -23,6 +23,8 @@ import input_data
 import numpy as np
 from options import FLAGS
 import tensorflow.compat.v1 as tf
+# 导入NPU配置相关包
+from npu_bridge.npu_init import *
 
 
 # Building blocks of the network
